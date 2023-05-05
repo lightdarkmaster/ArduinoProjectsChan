@@ -45,7 +45,7 @@ void setup() {
 
 void loop() {
 
-readRainsensor();
+//readRainsensor();
 readDHT();
 //if dire nauran {readDHT} else{rainsensor}
 
@@ -69,6 +69,7 @@ void readDHT(){
   
   float humidity = dht.readHumidity();
   float temperature = dht.readTemperature();
+  float foreignheight = temperature*9/5 +32;
 
   if(temperature >= 15){ //if temperature is equal or greater than 15
     digitalWrite(fan, HIGH);
@@ -82,24 +83,29 @@ void readDHT(){
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
-
+//Serial
   Serial.print("Humidity: ");
   Serial.print(humidity);
   Serial.print(" %\t");
   Serial.print("Temperature: ");
   Serial.print(temperature);
   Serial.println(" °C");
+  Serial.print(foreignheight);  
   
+  //LCD
   lcd.setCursor(0, 0);                       // set the cursor to the first column, first row
-  lcd.print("Temp: ");                       // print the temperature label
+  lcd.print("T: ");                       // print the temperature label
   lcd.print(temperature);                    // print the temperature value
-  lcd.print(" C");  
+  lcd.print("C "); 
+  lcd.print(foreignheight);
+  lcd.print("F"); 
+
 
   lcd.setCursor(0, 1);                       // set the cursor to the first column, first row
-  lcd.print("Humidity: ");                       // print the temperature label
+  lcd.print("Humid: ");                       // print the temperature label
   lcd.print(humidity);                    // print the temperature value
   lcd.print(" C"); 
   delay(1000);
 }
 
-
+//deg C and deg F addeds to the temperature readings

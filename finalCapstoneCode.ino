@@ -45,7 +45,7 @@ void setup() {
 
 void loop() {
 
-//readRainsensor();
+readRainsensor();
 readDHT();
 //if dire nauran {readDHT} else{rainsensor}
 
@@ -58,8 +58,10 @@ void readRainsensor(){
 
   if (rainVal < 500) {  // If the sensor value is less than 500, it's raining
     Serial.println("It's raining!");
+     myservoWindow.write(90);
   }else{
     Serial.println("Not Raining");
+     myservoWindow.write(180);
   }
   delay(500);              // Delay for 500ms before taking another reading
 }
@@ -73,10 +75,10 @@ void readDHT(){
 
   if(temperature >= 15){ //if temperature is equal or greater than 15
     digitalWrite(fan, HIGH);
-    myservoWindow.write(180);
+   //s180
   }else{
     digitalWrite(fan, LOW);
-    myservoWindow.write(90);
+    //s90
   }
 
   if (isnan(humidity) || isnan(temperature)) {
@@ -108,4 +110,4 @@ void readDHT(){
   delay(1000);
 }
 
-//deg C and deg F addeds to the temperature readings
+
